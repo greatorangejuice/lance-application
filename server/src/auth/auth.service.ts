@@ -39,27 +39,6 @@ export class AuthService {
     }
   }
 
-  async altLogin(email, password) {
-    const user = await this.validateUser(email, password);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    const payload = {
-      email: user.email,
-      sub: user.id,
-      roles: user.roles.map((role) => role.role),
-    };
-    return {
-      access_token: this.jwtService.sign(payload),
-      refresh_token: this.jwtService.sign(
-        { token: 'refresh' },
-        { expiresIn: '30d', secret: environment.refreshSecretKey },
-      ),
-      email: user.email,
-      roles: payload.roles,
-    };
-  }
-
   async login(user: any) {
     const payload = {
       email: user.email,
