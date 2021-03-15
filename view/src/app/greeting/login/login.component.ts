@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,16 +10,26 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  form!: FormGroup;
+  submitted = false;
+  // message: string;
+  username = '';
+  hide = true;
+
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      username: new FormControl(this.username, [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
+  }
 
   submit(): void {
     this.authService.login('admin@email.com', 'admin').subscribe();
-  }
-
-  submitS(): void {
-    console.log('Start test');
-    this.authService.test().subscribe();
   }
 }

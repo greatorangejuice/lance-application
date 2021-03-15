@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { GreetingModule } from './greeting/greeting.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +16,10 @@ import { GreetingModule } from './greeting/greeting.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     GreetingModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
