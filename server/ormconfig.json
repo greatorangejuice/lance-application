@@ -1,0 +1,20 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "JimboWimbo",
+  "password": "jimbowimbo9W",
+  "database": "lanceDb",
+  "insecureAuth": true,
+  "entities": [
+    "dist/**/*.entity{.ts,.js}"
+  ],
+  "logging": true,
+  "cache": true,
+  "synchronize": true,
+  "migrationsTableName": "migrations_typeorm",
+  "migrations": [
+    "dist/migration/*.js"
+  ],
+  "migrationsRun": true
+}
