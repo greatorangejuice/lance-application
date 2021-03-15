@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -32,6 +37,27 @@ export class AuthService {
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.CONFLICT);
     }
+  }
+
+  async altLogin(email, password) {
+    const user = await this.validateUser(email, password);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      roles: user.roles.map((role) => role.role),
+    };
+    return {
+      access_token: this.jwtService.sign(payload),
+      refresh_token: this.jwtService.sign(
+        { token: 'refresh' },
+        { expiresIn: '30d', secret: environment.refreshSecretKey },
+      ),
+      email: user.email,
+      roles: payload.roles,
+    };
   }
 
   async login(user: any) {

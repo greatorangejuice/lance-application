@@ -1,0 +1,12 @@
+{
+  "name": "lance",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "start-dev": "cd server && yarn run start:dev"
+  }
+}
