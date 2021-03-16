@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
+import { ILoginData } from '../models/login-data';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(loginData: ILoginData): Observable<any> {
+    const { email, password } = loginData;
     return this.http
       .post<any>(`${environment.apiUrl}/auth/login`, {
         email,
@@ -41,17 +43,7 @@ export class AuthService {
       );
   }
 
-  test(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/auth/test`, {}).pipe(
-      tap((req) => {
-        console.log('LOG');
-        console.log(req);
-      })
-    );
-  }
-
   logout(): void {
-    // remove user from local storage to log user out
     localStorage.removeItem('user');
     // @ts-ignore
     this.userSubject.next(null);

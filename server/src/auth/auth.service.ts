@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -19,12 +14,6 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     try {
       const user = await this.usersService.getUserWithRolesAndPassword(email);
-      if (user === undefined) {
-        throw new HttpException(
-          'ItemsSearchAndPagination not found',
-          HttpStatus.NOT_FOUND,
-        );
-      }
       const comparedPassword = await bcrypt.compareSync(
         password,
         user.password,
@@ -35,7 +24,7 @@ export class AuthService {
       }
       return null;
     } catch (e) {
-      throw new HttpException(e.message, HttpStatus.CONFLICT);
+      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }
   }
 

@@ -3,6 +3,8 @@ import { AuthService } from '../../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { ILoginData } from '../../models/login-data';
 
 @Component({
   selector: 'app-login',
@@ -18,18 +20,32 @@ export class LoginComponent implements OnInit {
 
   form!: FormGroup;
   submitted = false;
-  // message: string;
+  message = '';
   username = '';
   hide = true;
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      username: new FormControl(this.username, [Validators.required]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
   }
 
-  submit(): void {
-    this.authService.login('admin@email.com', 'admin').subscribe();
+  submit(): Subscription {
+    console.log(this.form.value);
+    const loginData: ILoginData = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+    };
+    return this.authService.login(loginData).subscribe(
+      (data) => {
+        console.log(data);
+        this.submitted = false;
+        this.router.navigate(['/tasks']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
