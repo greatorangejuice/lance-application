@@ -4,10 +4,27 @@ import { CommonLayoutComponent } from './components/common-layout/common-layout.
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './components/page-not-found/not-found.component';
+import { MatTableComponent } from './components/mat-table/mat-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [CommonLayoutComponent, NotFoundComponent],
-  imports: [CommonModule, MatToolbarModule, RouterModule],
-  exports: [CommonLayoutComponent, NotFoundComponent],
+  declarations: [CommonLayoutComponent, NotFoundComponent, MatTableComponent],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    RouterModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
+  exports: [CommonLayoutComponent, NotFoundComponent, MatTableComponent],
 })
 export class CoreModule {}

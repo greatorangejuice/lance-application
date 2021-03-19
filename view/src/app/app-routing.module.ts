@@ -23,8 +23,8 @@ const routes: Routes = [
       import('./task-manager/task-manager.module').then(
         (m) => m.TaskManagerModule
       ),
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin, Role.User, Role.Manager] },
+    // canActivate: [AuthGuard],
+    // data: { roles: [Role.Admin, Role.User, Role.Manager] },
   },
   {
     path: '**',
