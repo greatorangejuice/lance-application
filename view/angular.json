@@ -14,6 +14,11 @@
         },
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular": {
+          "component": {
+            "changeDetection": "OnPush"
+          }
         }
       },
       "root": "",

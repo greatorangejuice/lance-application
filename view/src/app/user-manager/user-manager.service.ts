@@ -15,11 +15,19 @@ export class UserManagerService {
 
   // @ts-ignore
   getAllUsers(options: GetUserOptionsDto): Observable<UserApi> {
-    return this.http.get<UserApi>(`${environment.apiUrl}/users`, {
-      params: new HttpParams()
-        .set('page', options.page.toString())
-        .set('limit', options.limit.toString()),
-      // .set('email', options.email),
+    let httpParams = new HttpParams();
+
+    Object.keys(options).forEach((k) => {
+      // @ts-ignore
+      httpParams = httpParams.set(k, options[k]);
     });
+    console.log(httpParams);
+    console.log(httpParams.toString());
+
+    return this.http.get<UserApi>(
+      `${
+        environment.apiUrl
+      }/users/search?${httpParams.toString()}&isActive=false`
+    );
   }
 }
