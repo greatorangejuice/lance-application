@@ -2,10 +2,64 @@
   display: flex;
   flex-direction: column;
 }
-.layout {
+.core-layout {
   //min-height: calc(100vh - 30px);
   flex: 1 0 auto;
 }
+.core-header {
+  background-color: #292961;
+  span {
+    color: aliceblue;
+  }
+  height: 40px;
+}
+
+.toggle-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+}
+
+.core-sidenav-container {
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+}
+
+.core-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background: #eeeeee;
+}
+
+.core-min-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  background: #eeeeee;
+}
+
+.core-nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  button {
+    width: 100%;
+    text-align: start;
+  }
+}
+
 .footer {
   flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

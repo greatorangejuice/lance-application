@@ -5,7 +5,10 @@
   <table mat-table class="mat-elevation-z8" [dataSource]="dataSource"  matSort matSortActive="email"
          matSortDirection="asc" matSortDisableClear>
     <ng-container matColumnDef="email">
-      <mat-header-cell mat-sort-header *matHeaderCellDef>Email</mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef>
+          <input matInput placeholder="Search lessons" #input>
+        <mat-icon>'arrow'</mat-icon>
+      </mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
     </ng-container>
 

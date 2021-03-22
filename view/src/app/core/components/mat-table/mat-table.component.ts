@@ -46,7 +46,7 @@ export class MatTableComponent implements OnInit, AfterViewInit {
 
   loadUsersPage() {
     console.log(this.paginator.pageIndex, this.paginator.pageSize);
-    console.log(this.sort.direction);
+    console.log(this.sort.active);
     this.dataSource.loadUsers({
       page: this.paginator.pageIndex,
       limit: this.paginator.pageSize,

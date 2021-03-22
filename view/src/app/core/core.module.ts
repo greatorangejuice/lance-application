@@ -11,6 +11,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [CommonLayoutComponent, NotFoundComponent, MatTableComponent],
@@ -24,6 +28,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     MatInputModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatMenuModule,
   ],
   exports: [CommonLayoutComponent, NotFoundComponent, MatTableComponent],
 })

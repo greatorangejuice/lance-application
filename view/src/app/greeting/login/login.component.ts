@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ILoginData } from '../../models/login-data';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   constructor(
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): Subscription {
-    console.log(this.form.value);
     const loginData: ILoginData = {
       email: this.form.value.email,
       password: this.form.value.password,

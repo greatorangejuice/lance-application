@@ -1,10 +1,41 @@
-<div class="layout">
+<div class="core-layout">
   <header>
-    <mat-toolbar>
+    <mat-toolbar class="core-header">
       <span>Lance App</span>
     </mat-toolbar>
+
   </header>
-  <router-outlet></router-outlet>
+
+  <mat-sidenav-container class="core-sidenav-container">
+    <mat-sidenav *ngIf="userIsLogged()" #sidenav mode="side" opened class="core-sidenav"
+                 [fixedInViewport]="true" [fixedTopGap]="40"
+                 [fixedBottomGap]="0">
+      <button mat-button (click)="toggleClass()" class="toggle-button"><mat-icon>menu</mat-icon>Collapse sidebar</button>
+
+      <mat-nav-list class="core-nav-list">
+        <button mat-button>First</button>
+        <button mat-button>Second</button>
+        <button mat-button>Third</button>
+      </mat-nav-list>
+<!--      <button mat-button [matMenuTriggerFor]="animals">Animal index</button>-->
+<!--      <mat-menu #animals="matMenu" yPosition="above">-->
+<!--        <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>-->
+<!--&lt;!&ndash;        <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>&ndash;&gt;-->
+<!--      </mat-menu>-->
+
+<!--      <mat-menu #vertebrates="matMenu">-->
+<!--        <button mat-menu-item>Birds</button>-->
+<!--        <button mat-menu-item>Mammals</button>-->
+<!--      </mat-menu>-->
+    </mat-sidenav>
+<!--    <mat-sidenav #iconsidenav *ngIf="!sidenav.opened" position="end" class="core-min-sidenav">-->
+<!--      Second-->
+<!--    </mat-sidenav>-->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
 </div>
 
-<footer class="footer"><div><h3>Footer</h3></div></footer>
+<!--<footer class="footer"><div><h3>Footer</h3></div></footer>-->
