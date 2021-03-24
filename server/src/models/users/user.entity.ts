@@ -3,10 +3,12 @@ import {
   Entity,
   Index,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty, IsEmail } from 'class-validator';
 import { Role } from '../roles/user-roles.entity';
+import { Review } from '../reviews/review.entity';
 
 @Entity()
 export class User {

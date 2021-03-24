@@ -21,13 +21,11 @@ export class UserManagerService {
       // @ts-ignore
       httpParams = httpParams.set(k, options[k]);
     });
-    console.log(httpParams);
-    console.log(httpParams.toString());
+    // console.log(httpParams);
+    // console.log(httpParams.toString());
 
     return this.http.get<UserApi>(
-      `${
-        environment.apiUrl
-      }/users/search?${httpParams.toString()}&isActive=false`
+      `${environment.apiUrl}/users/search?${httpParams.toString()}`
     );
   }
 }

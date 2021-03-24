@@ -1,4 +1,4 @@
-import { SortEnum } from '../sort.enum';
+import { SortEnum } from '../models/sort.enum';
 
 export interface PaginationOptionsInterface {
   limit: number;
