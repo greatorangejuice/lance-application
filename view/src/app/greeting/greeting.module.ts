@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [LoginComponent, GreetingComponent],
@@ -17,6 +18,18 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: GreetingComponent,
+        children: [
+          {
+            path: '',
+            component: LoginComponent,
+          },
+        ],
+      },
+    ]),
   ],
 })
 export class GreetingModule {}

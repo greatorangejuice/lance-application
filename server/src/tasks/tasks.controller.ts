@@ -1,4 +1,4 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
 import { Auth } from '../auth/auth.decorator';
 import { ERole } from '../models/roles/enums/role.enum';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -7,6 +7,7 @@ import { CurrentUser } from '../models/current-user';
 import { TasksService } from './tasks.service';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ChangeExecutorDto } from './dto/change-executor.dto';
+import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
 
 @Controller('tasks')
 export class TasksController {
@@ -18,6 +19,15 @@ export class TasksController {
     @Me() currentUser: CurrentUser,
   ) {
     return this.tasksService.createTask(createTaskDto, currentUser);
+  }
+
+  @Get()
+  getAllTasks(@Query() query) {
+    const paginationOptions: PaginationOptionsInterface = {
+      limit: query.hasOwnProperty('limit') ? query.limit : 10,
+      page: query.hasOwnProperty('page') ? query.page : 0,
+    };
+    return this.tasksService.getAllTasks(paginationOptions);
   }
 
   @Patch('update')

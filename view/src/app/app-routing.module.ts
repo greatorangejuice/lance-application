@@ -4,17 +4,19 @@ import { GreetingComponent } from './greeting/greeting.component';
 import { NotFoundComponent } from './core/components/page-not-found/not-found.component';
 import { TaskManagerComponent } from './task-manager/task-manager.component';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { Role } from './models/role';
+import { Role } from './models/users/role';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
     pathMatch: 'full',
+    redirectTo: 'greeting',
   },
+
   {
-    path: 'login',
-    component: GreetingComponent,
+    path: 'greeting',
+    loadChildren: () =>
+      import('./greeting/greeting.module').then((m) => m.GreetingModule),
   },
 
   {
@@ -25,6 +27,13 @@ const routes: Routes = [
       ),
     // canActivate: [AuthGuard],
     // data: { roles: [Role.Admin, Role.User, Role.Manager] },
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./user-manager/user-manager.module').then(
+        (m) => m.UserManagerModule
+      ),
   },
   {
     path: '**',

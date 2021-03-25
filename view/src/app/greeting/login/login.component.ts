@@ -3,7 +3,7 @@ import { AuthService } from '../../auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ILoginData } from '../../models/login-data';
+import { ILoginData } from '../../models/login/login-data';
 
 @Component({
   selector: 'app-login',

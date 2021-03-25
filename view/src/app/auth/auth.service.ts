@@ -3,9 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
-import { User } from '../models/user';
+import { User } from '../models/users/user';
 import { environment } from '../../environments/environment';
-import { ILoginData } from '../models/login-data';
+import { ILoginData } from '../models/login/login-data';
 
 @Injectable({
   providedIn: 'root',

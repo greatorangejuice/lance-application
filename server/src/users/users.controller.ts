@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get('search')
-  @Auth(ERole.Manager, ERole.Admin)
+  // @Auth(ERole.Manager, ERole.Admin)
   getAllUsers(@Query() query) {
     return this.usersService.getAllUsers({
       limit: query.hasOwnProperty('limit') ? query.limit : 10,

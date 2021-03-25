@@ -7,6 +7,9 @@ import { Repository } from 'typeorm';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ChangeExecutorDto } from './dto/change-executor.dto';
 import { UsersService } from '../users/users.service';
+import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
+import { Pagination } from '../pagination/pagination';
+import { User } from '../models/users/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -90,6 +93,25 @@ export class TasksService {
       }
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getAllTasks(
+    paginationOptions: PaginationOptionsInterface,
+  ): Promise<Pagination<Task>> {
+    try {
+      const [results, total] = await this.tasksRepository.findAndCount({
+        take: paginationOptions.limit,
+        skip: paginationOptions.page,
+        relations: ['customer'],
+      });
+
+      return new Pagination<Task>({
+        results,
+        total,
+      });
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.NOT_FOUND);
     }
   }
 }
