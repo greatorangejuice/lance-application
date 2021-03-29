@@ -13,25 +13,14 @@
       <button mat-button (click)="toggleClass()" class="toggle-button"><mat-icon>menu</mat-icon>Collapse sidebar</button>
 
       <mat-nav-list class="core-nav-list">
-        <button mat-button color="primary" [routerLink]="['/users']">Добавить новое задание</button>
+        <button mat-button color="primary" [routerLink]="['/tasks/creator']">Добавить новое задание</button>
         <button mat-button  [routerLink]="['/users']">Users</button>
         <button mat-button  [routerLink]="['/tasks']">Task manager</button>
         <button mat-button>Third</button>
       </mat-nav-list>
-<!--      <button mat-button [matMenuTriggerFor]="animals">Animal index</button>-->
-<!--      <mat-menu #animals="matMenu" yPosition="above">-->
-<!--        <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>-->
-<!--&lt;!&ndash;        <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>&ndash;&gt;-->
-<!--      </mat-menu>-->
 
-<!--      <mat-menu #vertebrates="matMenu">-->
-<!--        <button mat-menu-item>Birds</button>-->
-<!--        <button mat-menu-item>Mammals</button>-->
-<!--      </mat-menu>-->
     </mat-sidenav>
-<!--    <mat-sidenav #iconsidenav *ngIf="!sidenav.opened" position="end" class="core-min-sidenav">-->
-<!--      Second-->
-<!--    </mat-sidenav>-->
+
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

@@ -1,0 +1,100 @@
+<h3>Привет, давай создадим задание.</h3>
+
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="descriptionForm">
+    <form class="flex column center" [formGroup]="descriptionForm">
+      <ng-template matStepLabel>Describe your task</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Выбрать предмет</mat-label>
+        <mat-select formControlName="subject" >
+          <mat-option value="0">Другой предмет</mat-option>
+          <mat-option [matTooltip]="subject.title" *ngFor="let subject of subjects$ | async" [value]="subject.id">{{subject.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" placeholder="Нужно сделать контрольную"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Полное описание"></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="specialForm">
+    <form  [formGroup]="specialForm">
+      <ng-template  matStepLabel>Fill special parameters</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input formControlName="dueDate"
+               [min]="minDate" matInput
+               [matDatepicker]="picker"
+               placeholder="Choose due date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="submit()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<ng-template #verticalTemplate>
+  <mat-vertical-stepper #verticalStepper>
+<!--    <mat-step [stepControl]="subjectForm">-->
+<!--      <form [formGroup]="subjectForm">-->
+<!--        <ng-template matStepLabel>Chose the subject</ng-template>-->
+<!--        &lt;!&ndash;      <mat-form-field>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <mat-label>Subject</mat-label>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </mat-form-field>&ndash;&gt;-->
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Выбрать предмет</mat-label>-->
+<!--          <mat-select>-->
+<!--            <mat-option value="one">First option</mat-option>-->
+<!--            <mat-option value="two">Second option</mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+<!--        <div>-->
+<!--          <button mat-button matStepperNext>Next</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+<!--    <mat-step [stepControl]="descriptionForm">-->
+<!--      <form [formGroup]="descriptionForm">-->
+<!--        <ng-template matStepLabel>Fill out your address</ng-template>-->
+<!--        <mat-form-field>-->
+<!--          <mat-label>Address</mat-label>-->
+<!--          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"-->
+<!--                 required>-->
+<!--        </mat-form-field>-->
+<!--        <div>-->
+<!--          <button mat-button matStepperPrevious>Back</button>-->
+<!--          <button mat-button matStepperNext>Next</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+<!--    <mat-step>-->
+<!--      <ng-template matStepLabel>Done</ng-template>-->
+<!--      <p>You are now done.</p>-->
+<!--      <div>-->
+<!--        <button mat-button matStepperPrevious>Back</button>-->
+<!--        <button mat-button (click)="verticalStepper.reset()">Reset</button>-->
+<!--      </div>-->
+<!--    </mat-step>-->
+  </mat-vertical-stepper>
+</ng-template>

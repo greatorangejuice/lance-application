@@ -9,6 +9,7 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { TasksModule } from './tasks/tasks.module';
 import { RolesController } from './roles/roles.controller';
 import { RolesModule } from './roles/roles.module';
+import { SubjectsModule } from './subjects/subjects.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RolesModule } from './roles/roles.module';
     ReviewsModule,
     TasksModule,
     RolesModule,
+    SubjectsModule,
   ],
   controllers: [AppController, ReviewsController],
   providers: [AppService],
