@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskManagerComponent } from './task-manager.component';
 import { RouterModule } from '@angular/router';
 import { TaskViewerComponent } from './task-viewer/task-viewer.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { CoreModule } from '../core/core.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor } from '../auth/interceptors/jwt.interceptor';
 import { TaskCreatorComponent } from './task-creator/task-creator.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +14,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -53,6 +52,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatListModule,
   ],
 })
 export class TaskManagerModule {}

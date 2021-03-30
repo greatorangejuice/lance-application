@@ -10,10 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CoreModule } from './core/core.module';
 import { TaskManagerModule } from './task-manager/task-manager.module';
-import { ErrorInterceptor } from './auth/interceptors/error.interceptor';
 import { JwtInterceptor } from './auth/interceptors/jwt.interceptor';
-import { TaskViewerComponent } from './task-manager/task-viewer/task-viewer.component';
-import { UserManagerComponent } from './user-manager/user-manager.component';
 import { UserManagerModule } from './user-manager/user-manager.module';
 
 @NgModule({

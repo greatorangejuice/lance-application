@@ -13,12 +13,12 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" placeholder="Нужно сделать контрольную"
+        <input autocomplete="off" matInput formControlName="title" placeholder="Нужно сделать контрольную"
                required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" placeholder="Полное описание"></textarea>
+        <textarea autocomplete="off" matInput formControlName="description" placeholder="Полное описание"></textarea>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -33,10 +33,20 @@
         <input formControlName="dueDate"
                [min]="minDate" matInput
                [matDatepicker]="picker"
-               placeholder="Choose due date">
+               placeholder="Choose due date"
+        >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #picker></mat-datepicker>
+        <mat-datepicker touchUi #picker ></mat-datepicker>
       </mat-form-field>
+
+      <span class="example-list-section">
+      <li *ngFor="let way of contactWays">
+        <mat-checkbox (change)="triggerWay(way.name)" [checked]="way.enabled">
+          {{way.field}}
+        </mat-checkbox>
+        <input matInput [disabled]="!way.enabled" [placeholder]="'Введите: ' + way.name">
+      </li>
+  </span>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -53,8 +63,8 @@
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-<ng-template #verticalTemplate>
-  <mat-vertical-stepper #verticalStepper>
+<!--<ng-template #verticalTemplate>-->
+<!--  <mat-vertical-stepper #verticalStepper>-->
 <!--    <mat-step [stepControl]="subjectForm">-->
 <!--      <form [formGroup]="subjectForm">-->
 <!--        <ng-template matStepLabel>Chose the subject</ng-template>-->
@@ -96,5 +106,5 @@
 <!--        <button mat-button (click)="verticalStepper.reset()">Reset</button>-->
 <!--      </div>-->
 <!--    </mat-step>-->
-  </mat-vertical-stepper>
-</ng-template>
+<!--  </mat-vertical-stepper>-->
+<!--</ng-template>-->

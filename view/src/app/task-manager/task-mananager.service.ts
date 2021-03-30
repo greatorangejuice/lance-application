@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { TaskApi } from '../models/tasks/task-api.interface';
 import { CommonApi } from '../models/get-all-request.interface';
 import { Subject } from '../models/subjects/subject';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +20,6 @@ export class TaskManagerService {
     return this.httpClient
       .get<CommonApi<Subject>>(`${environment.apiUrl}/subjects`)
       .pipe(
-        tap((data) => {
-          console.log(data.results);
-        }),
         map((data) => {
           return data.results;
         })
