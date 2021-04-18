@@ -17,12 +17,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
+import { TaskDescriptionViewerComponent } from './task-description-viewer/task-description-viewer.component';
 
 @NgModule({
   declarations: [
     TaskManagerComponent,
     TaskViewerComponent,
     TaskCreatorComponent,
+    TaskDescriptionViewerComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -37,6 +39,10 @@ import { MatListModule } from '@angular/material/list';
           {
             path: 'creator',
             component: TaskCreatorComponent,
+          },
+          {
+            path: ':taskId',
+            component: TaskDescriptionViewerComponent,
           },
         ],
       },

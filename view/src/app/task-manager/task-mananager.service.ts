@@ -3,25 +3,37 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TaskApi } from '../models/tasks/task-api.interface';
-import { CommonApi } from '../models/get-all-request.interface';
+import { Pagination } from '../models/get-all-request.interface';
 import { Subject } from '../models/subjects/subject';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Task } from '../models/tasks/task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskManagerService {
   constructor(private httpClient: HttpClient) {}
+
   getAllTasks(): Observable<TaskApi> {
     return this.httpClient.get<TaskApi>(`${environment.apiUrl}/tasks`);
   }
 
   getAllSubjects(): Observable<Subject[]> {
     return this.httpClient
-      .get<CommonApi<Subject>>(`${environment.apiUrl}/subjects`)
+      .get<Pagination<Subject>>(`${environment.apiUrl}/subjects`)
       .pipe(
         map((data) => {
           return data.results;
+        })
+      );
+  }
+
+  getTaskById(taskIdFromRoute: string): Observable<Task> {
+    return this.httpClient
+      .get<Task>(`${environment.apiUrl}/tasks/byId/${taskIdFromRoute}`)
+      .pipe(
+        tap((data) => {
+          console.log(data);
         })
       );
   }

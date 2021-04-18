@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { Auth } from '../auth/auth.decorator';
 import { ERole } from '../models/roles/enums/role.enum';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -19,6 +27,11 @@ export class TasksController {
     @Me() currentUser: CurrentUser,
   ) {
     return this.tasksService.createTask(createTaskDto, currentUser);
+  }
+
+  @Get('byId/:id')
+  getTaskById(@Param() id: string) {
+    return this.tasksService.getTaskById(id);
   }
 
   @Get()

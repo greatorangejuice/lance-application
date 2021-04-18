@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -26,6 +28,7 @@ export class MatTableComponent implements OnInit, AfterViewInit {
 
   @Input('dataSource') dataSource!: GeneralDatasource<any>;
   @Input('tableColumns') tableColumns!: ITableColumns[];
+  @Output() open: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -61,6 +64,6 @@ export class MatTableComponent implements OnInit, AfterViewInit {
     this.dataSource.loadDataFromService(options);
   }
   clickMouse(data: any) {
-    console.log(data);
+    this.open.emit(data);
   }
 }

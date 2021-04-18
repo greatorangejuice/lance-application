@@ -114,4 +114,12 @@ export class TasksService {
       throw new HttpException(e.message, HttpStatus.NOT_FOUND);
     }
   }
+
+  async getTaskById(id: string) {
+    try {
+      return await this.tasksRepository.findOneOrFail(id);
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.NOT_FOUND);
+    }
+  }
 }
