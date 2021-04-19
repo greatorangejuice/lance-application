@@ -1,7 +1,7 @@
-import { Task } from './task';
+import { ITask } from './ITask';
 
 export interface TaskApi {
-  results: Task[];
+  results: ITask[];
   page_total: number;
   total: number;
 }

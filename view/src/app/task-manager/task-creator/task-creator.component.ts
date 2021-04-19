@@ -54,6 +54,7 @@ export class TaskCreatorComponent implements OnInit {
 
   ngOnInit() {
     this.subjects$ = this.taskService.getAllSubjects();
+    console.log(this.subjects$);
     this.minDate.setDate(this.minDate.getDate() + 2);
     this.descriptionForm = new FormGroup({
       subject: new FormControl('', [Validators.required]),

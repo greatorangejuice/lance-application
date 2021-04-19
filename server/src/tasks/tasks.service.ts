@@ -25,7 +25,7 @@ export class TasksService {
       newTask.description = description;
       newTask.title = title;
       newTask.dueDate = dueDate;
-      newTask.status = false;
+      newTask.status = 0;
       if (createTaskDto.link) {
         newTask.link = createTaskDto.link;
       }
@@ -63,6 +63,7 @@ export class TasksService {
         .update(taskId, {
           // @ts-ignore
           executor: executor,
+          status: 1,
         })
         .then(() => {
           return { code: 200, message: 'User is assigned' };
@@ -74,12 +75,12 @@ export class TasksService {
 
   async changeExecutor(changeExecutorDto?: ChangeExecutorDto) {
     try {
-      const { id } = changeExecutorDto;
+      const { taskId } = changeExecutorDto;
       if (changeExecutorDto.executorId) {
         const { executorId } = changeExecutorDto;
         const executor = await this.usersService.findUserById(executorId);
         return await this.tasksRepository
-          .update(id, {
+          .update(taskId, {
             // @ts-ignore
             executor: executor,
           })
@@ -87,7 +88,7 @@ export class TasksService {
             return { code: 200, message: 'Task was successfully updated' };
           });
       } else {
-        return await this.tasksRepository.update(id, {
+        return await this.tasksRepository.update(taskId, {
           executor: null,
         });
       }
@@ -96,14 +97,18 @@ export class TasksService {
     }
   }
 
-  async getAllTasks(
+  async getAllAvailableTasks(
     paginationOptions: PaginationOptionsInterface,
   ): Promise<Pagination<Task>> {
     try {
       const [results, total] = await this.tasksRepository.findAndCount({
         take: paginationOptions.limit,
         skip: paginationOptions.page,
-        relations: ['customer'],
+        relations: ['customer', 'subject'],
+        where: { status: 0 },
+      });
+      results.map((item) => {
+        return item.subject.title;
       });
 
       return new Pagination<Task>({
@@ -117,7 +122,30 @@ export class TasksService {
 
   async getTaskById(id: string) {
     try {
-      return await this.tasksRepository.findOneOrFail(id);
+      return await this.tasksRepository.findOneOrFail(id, {
+        relations: ['subject', 'customer'],
+      });
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async getTasksForCurrentExecutor(
+    paginationOptions: PaginationOptionsInterface,
+    executorId: string,
+  ) {
+    try {
+      const [results, total] = await this.tasksRepository.findAndCount({
+        take: paginationOptions.limit,
+        skip: paginationOptions.page,
+        relations: ['customer', 'executor', 'subject'],
+        where: { status: 1, executor: executorId },
+      });
+
+      return new Pagination<Task>({
+        results,
+        total,
+      });
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.NOT_FOUND);
     }

@@ -2,6 +2,7 @@ import {
   IsBoolean,
   IsDateString,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -27,9 +28,9 @@ export class UpdateTaskDto {
   @IsOptional()
   executorId: string;
 
-  @IsBoolean()
+  @IsNumber()
   @IsOptional()
-  status: boolean;
+  status: number;
 
   @IsString()
   @IsOptional()

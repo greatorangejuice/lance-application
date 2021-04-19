@@ -1,0 +1,17 @@
+<div *ngIf="loading$ | async">Загрузка</div>
+<div *ngIf="isErrored$ | async">Что-то пошло не так</div>
+<div class="task-details">
+  <div *ngIf="task$ | async as task">
+    <h3 class="task-title">{{task.title}}</h3>
+    <div><b>Предмет:</b>{{task.subject.title || 'Не указан'}}</div>
+    <div class="task-description"><b>Description: </b>{{task.description}}</div>
+    <tr></tr>
+    <div class="task-dates">
+      <p><b>Время создания:</b> {{task.creationDate | date}}</p>
+      <p><b>Дедлайн:</b> {{task.dueDate | date}}</p>
+    </div>
+    <div>
+      <button (click)="assignTaskByExecutor(task.id)" [disabled]="!isButtonActive" mat-button>{{buttonState}}</button>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ export class TaskViewerComponent implements OnInit {
     { title: 'title' },
     { title: 'description' },
     { title: 'dueDate' },
+    { title: 'subject' },
   ];
   ngOnInit(): void {
     this.dataSource = new ExtendTasksDatasource(this.taskService);

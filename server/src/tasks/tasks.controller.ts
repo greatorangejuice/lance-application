@@ -34,17 +34,29 @@ export class TasksController {
     return this.tasksService.getTaskById(id);
   }
 
-  @Get()
-  getAllTasks(@Query() query) {
+  @Get('available')
+  @Auth(ERole.User, ERole.Manager, ERole.Admin, ERole.Executor)
+  getAllAvailableTasks(@Query() query) {
     const paginationOptions: PaginationOptionsInterface = {
       limit: query.hasOwnProperty('limit') ? query.limit : 10,
       page: query.hasOwnProperty('page') ? query.page : 0,
     };
-    return this.tasksService.getAllTasks(paginationOptions);
+    return this.tasksService.getAllAvailableTasks(paginationOptions);
+  }
+
+  getTasksForCurrentExecutor(@Query() query, @Me() currentUser: CurrentUser) {
+    const paginationOptions: PaginationOptionsInterface = {
+      limit: query.hasOwnProperty('limit') ? query.limit : 10,
+      page: query.hasOwnProperty('page') ? query.page : 0,
+    };
+    return this.tasksService.getTasksForCurrentExecutor(
+      paginationOptions,
+      currentUser.userId,
+    );
   }
 
   @Patch('update')
-  @Auth(ERole.User, ERole.Manager, ERole.Admin)
+  @Auth(ERole.User, ERole.Manager, ERole.Admin, ERole.Executor)
   updateTask(@Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.updateTaskWithoutExecutor(updateTaskDto);
   }
@@ -61,7 +73,7 @@ export class TasksController {
     @Body() changeExecutorDto: ChangeExecutorDto,
     @Me() currentUser: CurrentUser,
   ) {
-    const { id } = changeExecutorDto;
-    return this.tasksService.assignTaskByExecutor(id, currentUser.userId);
+    const { taskId } = changeExecutorDto;
+    return this.tasksService.assignTaskByExecutor(taskId, currentUser.userId);
   }
 }

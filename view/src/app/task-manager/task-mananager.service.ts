@@ -6,7 +6,7 @@ import { TaskApi } from '../models/tasks/task-api.interface';
 import { Pagination } from '../models/get-all-request.interface';
 import { Subject } from '../models/subjects/subject';
 import { map, tap } from 'rxjs/operators';
-import { Task } from '../models/tasks/task';
+import { ITask } from '../models/tasks/ITask';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,9 @@ export class TaskManagerService {
   constructor(private httpClient: HttpClient) {}
 
   getAllTasks(): Observable<TaskApi> {
-    return this.httpClient.get<TaskApi>(`${environment.apiUrl}/tasks`);
+    return this.httpClient.get<TaskApi>(
+      `${environment.apiUrl}/tasks/available`
+    );
   }
 
   getAllSubjects(): Observable<Subject[]> {
@@ -28,13 +30,20 @@ export class TaskManagerService {
       );
   }
 
-  getTaskById(taskIdFromRoute: string): Observable<Task> {
+  getTaskById(taskIdFromRoute: string): Observable<ITask> {
     return this.httpClient
-      .get<Task>(`${environment.apiUrl}/tasks/byId/${taskIdFromRoute}`)
+      .get<ITask>(`${environment.apiUrl}/tasks/byId/${taskIdFromRoute}`)
       .pipe(
         tap((data) => {
           console.log(data);
         })
       );
+  }
+
+  assignTaskByExecutor(taskId: string): Observable<void> {
+    return this.httpClient.patch<void>(
+      `${environment.apiUrl}/tasks/assign-task/`,
+      { taskId }
+    );
   }
 }

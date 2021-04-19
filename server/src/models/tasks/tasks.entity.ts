@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/user.entity';
+import { AcademicSubject } from '../subjects/subjects.entity';
 
 @Entity()
 export class Task {
@@ -11,6 +12,9 @@ export class Task {
 
   @ManyToOne(() => User, (user) => user.id)
   executor: User;
+
+  @ManyToOne(() => AcademicSubject, (academicSubject) => academicSubject.id)
+  subject: AcademicSubject;
 
   @Column()
   title: string;
@@ -24,8 +28,8 @@ export class Task {
   @Column()
   dueDate: Date;
 
-  @Column({ default: false })
-  status: boolean;
+  @Column()
+  status: number;
 
   @Column({
     nullable: true,

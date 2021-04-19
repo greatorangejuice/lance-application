@@ -17,14 +17,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
-import { TaskDescriptionViewerComponent } from './task-description-viewer/task-description-viewer.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../auth/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
     TaskManagerComponent,
     TaskViewerComponent,
     TaskCreatorComponent,
-    TaskDescriptionViewerComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -42,7 +44,7 @@ import { TaskDescriptionViewerComponent } from './task-description-viewer/task-d
           },
           {
             path: ':taskId',
-            component: TaskDescriptionViewerComponent,
+            component: TaskDetailsComponent,
           },
         ],
       },
@@ -61,6 +63,9 @@ import { TaskDescriptionViewerComponent } from './task-description-viewer/task-d
     MatButtonToggleModule,
     MatCheckboxModule,
     MatListModule,
+  ],
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
 })
 export class TaskManagerModule {}
