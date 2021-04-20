@@ -11,7 +11,13 @@
       <p><b>Дедлайн:</b> {{task.dueDate | date}}</p>
     </div>
     <div>
-      <button (click)="assignTaskByExecutor(task.id)" [disabled]="!isButtonActive" mat-button>{{buttonState}}</button>
+      <button (click)="assignTaskByExecutor(task.id)" [disabled]="!isButtonActive || task.status === 1" mat-button>{{buttonState}}</button>
     </div>
+<!--    <div *ngIf="task.executor.id === currentUser.id"></div>-->
+<!--    TODO add update customer field-->
+    <div *ngIf="customer">
+      <p>Данные заказчика</p>
+      {{customer.firstname}}</div>
   </div>
+
 </div>

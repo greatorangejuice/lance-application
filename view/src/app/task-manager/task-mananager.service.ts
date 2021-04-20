@@ -40,10 +40,14 @@ export class TaskManagerService {
       );
   }
 
-  assignTaskByExecutor(taskId: string): Observable<void> {
-    return this.httpClient.patch<void>(
-      `${environment.apiUrl}/tasks/assign-task/`,
-      { taskId }
-    );
+  assignTaskByExecutor(taskId: string): Observable<any> {
+    return this.httpClient
+      .patch<any>(`${environment.apiUrl}/tasks/assign-task/`, { taskId })
+      .pipe(
+        tap((data) => {
+          console.log('ASSIGN TASK');
+          console.log(data);
+        })
+      );
   }
 }

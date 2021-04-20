@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-abstract',
   template: '',
 })
-export abstract class AbstractComponent implements OnInit {
+export abstract class AbstractTaskComponent implements OnInit {
   protected loadingSubject = new BehaviorSubject<boolean>(false);
   protected isErrored = new BehaviorSubject<boolean>(false);
 

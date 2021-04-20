@@ -9,7 +9,6 @@ import { ChangeExecutorDto } from './dto/change-executor.dto';
 import { UsersService } from '../users/users.service';
 import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
 import { Pagination } from '../pagination/pagination';
-import { User } from '../models/users/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -18,6 +17,7 @@ export class TasksService {
     private tasksRepository: Repository<Task>,
     private usersService: UsersService,
   ) {}
+
   async createTask(createTaskDto: CreateTaskDto, currentUser: CurrentUser) {
     try {
       const { dueDate, title, description } = createTaskDto;
@@ -59,6 +59,16 @@ export class TasksService {
   async assignTaskByExecutor(taskId: string, executorId: string) {
     try {
       const executor = await this.usersService.findUserById(executorId);
+      const task = await this.tasksRepository.findOneOrFail(taskId, {
+        relations: ['customer', 'executor', 'subject'],
+      });
+      if (task.status === 1) {
+        throw new HttpException(
+          'This task has already executer',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return await this.tasksRepository
         .update(taskId, {
           // @ts-ignore
@@ -66,7 +76,7 @@ export class TasksService {
           status: 1,
         })
         .then(() => {
-          return { code: 200, message: 'User is assigned' };
+          return { ...task, status: 1, executor: executor };
         });
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
@@ -104,7 +114,7 @@ export class TasksService {
       const [results, total] = await this.tasksRepository.findAndCount({
         take: paginationOptions.limit,
         skip: paginationOptions.page,
-        relations: ['customer', 'subject'],
+        relations: ['subject'],
         where: { status: 0 },
       });
       results.map((item) => {
@@ -123,7 +133,7 @@ export class TasksService {
   async getTaskById(id: string) {
     try {
       return await this.tasksRepository.findOneOrFail(id, {
-        relations: ['subject', 'customer'],
+        relations: ['subject'],
       });
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.NOT_FOUND);
