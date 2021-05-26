@@ -10,6 +10,8 @@ import { TasksModule } from './tasks/tasks.module';
 import { RolesController } from './roles/roles.controller';
 import { RolesModule } from './roles/roles.module';
 import { SubjectsModule } from './subjects/subjects.module';
+import { AnimalsModule } from './animals/animals.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { SubjectsModule } from './subjects/subjects.module';
     TasksModule,
     RolesModule,
     SubjectsModule,
+    AnimalsModule,
+    CommentsModule,
   ],
   controllers: [AppController, ReviewsController],
   providers: [AppService],
