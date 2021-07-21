@@ -18,11 +18,15 @@ export class ExtendTasksDatasource extends GeneralDatasource<ITask> {
           this.paginatorSubject.next(data.total);
         }),
         map((data) => {
-          return data.results;
+          const newData = data.results.map((item) => {
+            return { ...item, subject: item.subject.title };
+          });
+          return newData;
         }),
         finalize(() => this.loadingSubject.next(false))
       )
       .subscribe(
+        // @ts-ignore
         (data) => this.dataSubject.next(data),
         () => {
           this.isErrored.next(true);

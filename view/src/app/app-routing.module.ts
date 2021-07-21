@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GreetingComponent } from './greeting/greeting.component';
 import { NotFoundComponent } from './core/components/page-not-found/not-found.component';
-import { TaskManagerComponent } from './task-manager/task-manager.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { Role } from './models/users/role';
 
@@ -25,8 +23,6 @@ const routes: Routes = [
       import('./task-manager/task-manager.module').then(
         (m) => m.TaskManagerModule
       ),
-    // canActivate: [AuthGuard],
-    // data: { roles: [Role.Admin, Role.User, Role.Manager] },
   },
   {
     path: 'users',
@@ -34,6 +30,8 @@ const routes: Routes = [
       import('./user-manager/user-manager.module').then(
         (m) => m.UserManagerModule
       ),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.User, Role.Manager] },
   },
   {
     path: '**',

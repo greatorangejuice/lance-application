@@ -27,7 +27,10 @@ export class CommonLayoutComponent implements OnInit, AfterViewInit {
     console.log('Change class');
   }
   userIsLogged(): boolean {
-    console.log(!!this.authService.userValue);
     return !!this.authService.userValue;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -11,18 +11,18 @@ import { ILoginData } from '../models/login/login-data';
   providedIn: 'root',
 })
 export class AuthService {
-  private userSubject: BehaviorSubject<User>;
-  public user: Observable<User>;
+  private userSubject: BehaviorSubject<User | null>;
+  public user: Observable<User | null>;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<User>(
+    this.userSubject = new BehaviorSubject<User | null>(
       // @ts-ignore
       JSON.parse(localStorage.getItem('user'))
     );
     this.user = this.userSubject.asObservable();
   }
 
-  public get userValue(): User {
+  public get userValue(): User | null {
     return this.userSubject.value;
   }
 
@@ -35,7 +35,6 @@ export class AuthService {
       })
       .pipe(
         map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -43,10 +42,10 @@ export class AuthService {
       );
   }
 
-  logout(): void {
-    localStorage.removeItem('user');
-    // @ts-ignore
+  logout(params: any = {}): void {
+    console.log(params);
+    this.router.navigate(['/greeting'], params);
     this.userSubject.next(null);
-    this.router.navigate(['/login']);
+    localStorage.removeItem('user');
   }
 }

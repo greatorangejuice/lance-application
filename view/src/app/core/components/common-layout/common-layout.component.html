@@ -15,7 +15,7 @@
         <button mat-button color="primary" [routerLink]="['/tasks/creator']">Добавить новое задание</button>
         <button mat-button  [routerLink]="['/users']">Users</button>
         <button mat-button  [routerLink]="['/tasks']">Task manager</button>
-        <button mat-button>Third</button>
+        <button mat-button (click)="logout()">Logout</button>
       </mat-nav-list>
 
     </mat-sidenav>

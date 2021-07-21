@@ -26,30 +26,25 @@ export class TaskCreatorComponent implements OnInit {
   minDate = new Date();
   Object = Object;
   contactWays = [
-    { name: 'vk.com', field: 'VK ID', enabled: false },
-    { name: 'telegram', field: 'Telegram @username', enabled: false },
-    { name: 'email', field: 'email address', enabled: true },
+    { name: 'vk', field: 'VK ID', isEnabled: true },
+    { name: 'telegram', field: 'Telegram @username', isEnabled: true },
+    { name: 'email', field: 'email address', isEnabled: true },
   ];
 
-  contacts = {
-    vk: {
-      field: 'VK ID',
-      enabled: false,
-    },
-    telegram: {
-      field: 'Telegram @username',
-      enabled: false,
-    },
-    email: {
-      field: 'email address',
-      enabled: true,
-    },
-  };
-
-  triggerWay(contactWay: string) {
-    this.contactWays.find((contact) => {
+  triggerWay(contactWay: string): void {
+    const way = this.contactWays.find((contact) => {
       return contact.name === contactWay;
     });
+
+    if (way) {
+      console.log(this.specialForm.get(way.name));
+      const formControl = this.specialForm.get(way.name);
+      console.log(formControl);
+      console.log(formControl?.value);
+      formControl?.enabled
+        ? this.specialForm.disable()
+        : this.specialForm.enable();
+    }
   }
 
   ngOnInit() {
@@ -66,11 +61,16 @@ export class TaskCreatorComponent implements OnInit {
       isAuthorFromUniversity: new FormControl(false, [Validators.required]),
       contact: new FormControl('', [Validators.required]),
     });
+    this.contactWays.forEach((item) => {
+      this.specialForm.addControl(
+        item.name,
+        new FormControl({ value: '', disabled: !item.isEnabled })
+      );
+    });
   }
 
   submit() {
-    console.log(this.descriptionForm.value);
-    console.log(this.specialForm.value);
+    console.log({ ...this.descriptionForm.value, ...this.specialForm.value });
   }
 
   @HostListener('window:resize', ['$event'])

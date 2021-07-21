@@ -23,7 +23,7 @@ export class TaskDetailsComponent
   taskSubject = new BehaviorSubject<ITask | null>(null);
   task$ = this.taskSubject.asObservable();
   customer!: any;
-  currentUser!: User;
+  currentUser!: User | null;
 
   constructor(
     private route: ActivatedRoute,

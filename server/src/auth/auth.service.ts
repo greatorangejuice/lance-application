@@ -35,8 +35,8 @@ export class AuthService {
       roles: user.roles.map((role) => role.role),
     };
     return {
-      access_token: this.jwtService.sign(payload),
-      refresh_token: this.jwtService.sign(
+      accessToken: this.jwtService.sign(payload),
+      refreshToken: this.jwtService.sign(
         { token: 'refresh' },
         { expiresIn: '30d', secret: environment.refreshSecretKey },
       ),

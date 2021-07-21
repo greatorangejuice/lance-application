@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../auth/interceptors/jwt.interceptor';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { JwtInterceptor } from '../auth/interceptors/jwt.interceptor';
     MatListModule,
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
 })
 export class TaskManagerModule {}

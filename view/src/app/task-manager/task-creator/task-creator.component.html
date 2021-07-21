@@ -2,23 +2,24 @@
 
 <mat-horizontal-stepper #stepper>
   <mat-step [stepControl]="descriptionForm">
-    <form class="flex column center" [formGroup]="descriptionForm">
+    <form [formGroup]="descriptionForm" class="flex column center">
       <ng-template matStepLabel>Describe your task</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Выбрать предмет</mat-label>
-        <mat-select formControlName="subject" >
+        <mat-select formControlName="subject">
           <mat-option value="0">Другой предмет</mat-option>
-          <mat-option [matTooltip]="subject.title" *ngFor="let subject of subjects$ | async" [value]="subject.id">{{subject.title}}</mat-option>
+          <mat-option *ngFor="let subject of subjects$ | async" [matTooltip]="subject.title"
+                      [value]="subject.id">{{subject.title}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Title</mat-label>
-        <input autocomplete="off" matInput formControlName="title" placeholder="Нужно сделать контрольную"
+        <input autocomplete="off" formControlName="title" matInput placeholder="Нужно сделать контрольную"
                required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea autocomplete="off" matInput formControlName="description" placeholder="Полное описание"></textarea>
+        <textarea autocomplete="off" formControlName="description" matInput placeholder="Полное описание"></textarea>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -26,27 +27,28 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="specialForm">
-    <form  [formGroup]="specialForm">
-      <ng-template  matStepLabel>Fill special parameters</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input formControlName="dueDate"
-               [min]="minDate" matInput
-               [matDatepicker]="picker"
-               placeholder="Choose due date"
-        >
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #picker ></mat-datepicker>
-      </mat-form-field>
+    <form [formGroup]="specialForm">
+      <ng-template matStepLabel>Fill special parameters</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input [matDatepicker]="picker"
+                 [min]="minDate" formControlName="dueDate"
+                 matInput
+                 placeholder="Choose due date"
+          >
+          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #picker touchUi></mat-datepicker>
+        </mat-form-field>
 
-      <span class="example-list-section">
-      <li *ngFor="let way of contactWays">
-        <mat-checkbox (change)="triggerWay(way.name)" [checked]="way.enabled">
-          {{way.field}}
-        </mat-checkbox>
-        <input matInput [disabled]="!way.enabled" [placeholder]="'Введите: ' + way.name">
-      </li>
-  </span>
+          <div *ngFor="let way of contactWays">
+            <mat-checkbox (change)="triggerWay(way.name)" [checked]="way.isEnabled">
+              {{way.field}}
+            </mat-checkbox>
+            <input
+              [formControlName]="way.name"
+              [placeholder]="'Введите: ' + way.name" matInput >
+          </div>
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -58,8 +60,8 @@
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="submit()">Reset</button>
+      <button (click)="stepper.reset()" mat-button>Reset</button>
+      <button (click)="submit()" mat-button>Reset</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
