@@ -5,7 +5,6 @@ import { TaskType } from '../models/task-type/task-type.entity';
 import { Repository } from 'typeorm';
 import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
 import { Pagination } from '../pagination/pagination';
-import { Task } from '../models/tasks/tasks.entity';
 
 @Injectable()
 export class TaskTypesService {
@@ -18,7 +17,7 @@ export class TaskTypesService {
     createTaskTypeDto: CreateTaskTypeDto,
   ): Promise<TaskType> {
     try {
-      const newTaskType = { ...new TaskType(), title: createTaskTypeDto.title };
+      const newTaskType = { ...new TaskType(), ...createTaskTypeDto };
       return await this.taskTypeRepository.save(newTaskType);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

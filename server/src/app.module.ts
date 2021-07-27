@@ -12,6 +12,7 @@ import { RolesModule } from './roles/roles.module';
 import { SubjectsModule } from './subjects/subjects.module';
 import { TaskTypesModule } from './task-types/task-types.module';
 import { UniversitiesModule } from './universities/universities.module';
+import { FacultiesModule } from './faculties/faculties.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UniversitiesModule } from './universities/universities.module';
     SubjectsModule,
     TaskTypesModule,
     UniversitiesModule,
+    FacultiesModule,
   ],
   controllers: [AppController, ReviewsController],
   providers: [AppService],
