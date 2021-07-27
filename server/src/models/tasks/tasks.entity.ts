@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/user.entity';
 import { AcademicSubject } from '../subjects/subjects.entity';
+import { TaskType } from '../task-type/task-type.entity';
 
 @Entity()
 export class Task {
@@ -12,6 +13,14 @@ export class Task {
 
   @ManyToOne(() => User, (user) => user.id)
   executor: User;
+
+  @Column({
+    nullable: true,
+  })
+  customerVkId: string;
+
+  @ManyToOne(() => TaskType, (taskType) => taskType.id)
+  taskType: TaskType;
 
   @ManyToOne(() => AcademicSubject, (academicSubject) => academicSubject.id)
   subject: AcademicSubject;

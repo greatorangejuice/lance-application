@@ -18,7 +18,7 @@ export class TasksService {
     private usersService: UsersService,
   ) {}
 
-  async createTask(createTaskDto: CreateTaskDto, currentUser: CurrentUser) {
+  async createTask(createTaskDto: CreateTaskDto, currentUser?: CurrentUser) {
     try {
       const { dueDate, title, description } = createTaskDto;
       const newTask = new Task();
@@ -30,8 +30,10 @@ export class TasksService {
         newTask.link = createTaskDto.link;
       }
 
-      // @ts-ignore
-      newTask.customer = currentUser.userId;
+      if (currentUser) {
+        // @ts-ignore
+        newTask.customer = currentUser.userId;
+      }
       return await this.tasksRepository.save(newTask);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

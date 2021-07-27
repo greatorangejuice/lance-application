@@ -29,6 +29,11 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto, currentUser);
   }
 
+  @Post('createFromVK')
+  createTaskFromVK(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.createTask(createTaskDto);
+  }
+
   @Get('byId/:id')
   getTaskById(@Param() id: string) {
     return this.tasksService.getTaskById(id);
