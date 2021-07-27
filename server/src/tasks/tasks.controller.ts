@@ -16,22 +16,23 @@ import { TasksService } from './tasks.service';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ChangeExecutorDto } from './dto/change-executor.dto';
 import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
+import { CreateTaskVkDto } from "./dto/create-task-vk.dto";
 
 @Controller('tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
-  @Post('create')
-  @Auth(ERole.User, ERole.Manager, ERole.Admin)
-  createTask(
-    @Body() createTaskDto: CreateTaskDto,
-    @Me() currentUser: CurrentUser,
-  ) {
-    return this.tasksService.createTask(createTaskDto, currentUser);
-  }
+  // @Post('create')
+  // @Auth(ERole.User, ERole.Manager, ERole.Admin)
+  // createTask(
+  //   @Body() createTaskDto: CreateTaskDto,
+  //   @Me() currentUser: CurrentUser,
+  // ) {
+  //   return this.tasksService.createTask(createTaskDto, currentUser);
+  // }
 
   @Post('createFromVK')
-  createTaskFromVK(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.createTask(createTaskDto);
+  createTaskFromVK(@Body() createTaskVkDto: CreateTaskVkDto) {
+    return this.tasksService.createTask(createTaskVkDto);
   }
 
   @Get('byId/:id')
@@ -40,7 +41,7 @@ export class TasksController {
   }
 
   @Get('available')
-  @Auth(ERole.User, ERole.Manager, ERole.Admin, ERole.Executor)
+  // @Auth(ERole.User, ERole.Manager, ERole.Admin, ERole.Executor)
   getAllAvailableTasks(@Query() query) {
     const paginationOptions: PaginationOptionsInterface = {
       limit: query.hasOwnProperty('limit') ? query.limit : 10,

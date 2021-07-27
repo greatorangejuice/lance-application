@@ -9,6 +9,7 @@ import { ChangeExecutorDto } from './dto/change-executor.dto';
 import { UsersService } from '../users/users.service';
 import { PaginationOptionsInterface } from '../pagination/pagination.options.interface';
 import { Pagination } from '../pagination/pagination';
+import { CreateTaskVkDto } from "./dto/create-task-vk.dto";
 
 @Injectable()
 export class TasksService {
@@ -18,17 +19,24 @@ export class TasksService {
     private usersService: UsersService,
   ) {}
 
-  async createTask(createTaskDto: CreateTaskDto, currentUser?: CurrentUser) {
+  async createTask(createTaskVkDto: CreateTaskVkDto, currentUser?: CurrentUser) {
     try {
-      const { dueDate, title, description } = createTaskDto;
+      const { dueDate, description, customerVkId, taskTypeId, subjectId, universityId, facultyId } = createTaskVkDto;
       const newTask = new Task();
       newTask.description = description;
-      newTask.title = title;
+      // newTask.title = title;
       newTask.dueDate = dueDate;
       newTask.status = 0;
-      if (createTaskDto.link) {
-        newTask.link = createTaskDto.link;
-      }
+      newTask.customerVkId = customerVkId;
+      // @ts-ignore
+      newTask.taskType = taskTypeId;
+      // @ts-ignore
+      newTask.faculty = facultyId;
+      // @ts-ignore
+      newTask.subject = subjectId;
+      // if (createTaskVkDto.link) {
+      //   newTask.link = createTaskVkDto.link;
+      // }
 
       if (currentUser) {
         // @ts-ignore
@@ -116,7 +124,7 @@ export class TasksService {
       const [results, total] = await this.tasksRepository.findAndCount({
         take: paginationOptions.limit,
         skip: paginationOptions.page,
-        relations: ['subject'],
+        relations: ['subject', 'faculty', 'faculty.university'],
         where: { status: 0 },
       });
       results.map((item) => {

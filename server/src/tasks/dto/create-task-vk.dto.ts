@@ -24,6 +24,6 @@ export class CreateTaskVkDto {
   @IsNotEmpty()
   dueDate: Date;
 
-  @IsString()
-  customerVkId: string;
+  @IsNumber()
+  customerVkId: number;
 }

@@ -7,4 +7,7 @@ export class University {
 
   @Column()
   title: string;
+
+  @Column()
+  fullTitle: string;
 }

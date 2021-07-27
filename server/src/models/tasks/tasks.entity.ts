@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/user.entity';
 import { AcademicSubject } from '../subjects/subjects.entity';
 import { TaskType } from '../task-type/task-type.entity';
+import { Faculty } from "../faculty/faculty.entity";
 
 @Entity()
 export class Task {
@@ -17,7 +18,10 @@ export class Task {
   @Column({
     nullable: true,
   })
-  customerVkId: string;
+  customerVkId: number;
+
+  @ManyToOne(() => Faculty, (faculty) => faculty.id)
+  faculty: Faculty;
 
   @ManyToOne(() => TaskType, (taskType) => taskType.id)
   taskType: TaskType;
@@ -25,8 +29,8 @@ export class Task {
   @ManyToOne(() => AcademicSubject, (academicSubject) => academicSubject.id)
   subject: AcademicSubject;
 
-  @Column()
-  title: string;
+  // @Column()
+  // title: string;
 
   @Column()
   description: string;
