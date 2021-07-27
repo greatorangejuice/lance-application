@@ -23,8 +23,6 @@ export class Task {
   @ManyToOne(() => Faculty, (faculty) => faculty.id)
   faculty: Faculty;
 
-  @ManyToOne(() => Faculty, (faculty) => faculty.id)
-  faculty: Faculty;
 
   @ManyToOne(() => TaskType, (taskType) => taskType.id)
   taskType: TaskType;
